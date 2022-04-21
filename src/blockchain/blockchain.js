@@ -1,7 +1,9 @@
 const Block = require('./block');
 
-class BlockChain {
-  #difficulty = '27';
+const DIFFICULTY = '03';
+
+class Blockchain {
+  #difficulty = DIFFICULTY;
 
   #init(genesis) {
     genesis.mine(this.#difficulty, this._hashF);
@@ -61,4 +63,4 @@ class BlockChain {
 
 }
 
-module.exports = BlockChain;
+module.exports = Blockchain;
