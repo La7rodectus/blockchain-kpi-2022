@@ -1,6 +1,6 @@
 const Block = require('./block');
 
-const DIFFICULTY = '03';
+const DIFFICULTY = '03'; // month of birth
 
 class Blockchain {
   #difficulty = DIFFICULTY;
@@ -14,7 +14,7 @@ class Blockchain {
     this._hashF = hashF;
 
     this.chain = [];
-    this.currentTransactions = [];
+    this.currentBlock = null;
 
     this.#init(genesis);
   }
@@ -52,6 +52,19 @@ class Blockchain {
 
     this.chain.push(block);
     return true;
+  }
+
+  setCurrentBlock(block) {
+    this.currentBlock = block;
+  }
+
+  getCurrentBlock() {
+    return this.currentBlock;
+  }
+
+  genNextEmptyBlock() {
+    const prev = this.getLastBlock();
+    return new Block(prev.getHash(), this.chain.length);
   }
 
   log() {

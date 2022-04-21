@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node ./src",
     "dev": "npx nodemon --inspect=9123 ./src",
+    "demo": "node ./src/demo.js",
     "env:up": "docker compose up -d",
     "env:down": "docker compose down",
     "test": "mocha",
