@@ -51,6 +51,8 @@ class Blockchain {
     }
 
     this.chain.push(block);
+    this.currentBlock = null;
+
     return true;
   }
 

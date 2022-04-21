@@ -8,9 +8,7 @@ const app = require('fastify')(appConfig);
 if (!isProd) app.register(require('fastify-swagger'), docs);
 
 app.register(require('fastify-cors'));
-
 app.register(require('./blockchain'));
-//(app);
 app.register(require('./router'));
 
 module.exports = app;

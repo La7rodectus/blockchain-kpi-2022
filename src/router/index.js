@@ -11,12 +11,12 @@ const routes = [
     schema: schemas.transaction.post,
     handler: actions.transaction.post
   },
-  // {
-  //   method: methods.GET,
-  //   url: urls.MINE,
-  //   schema: schemas.block.mine,
-  //   handler: actions.block.mine
-  // },
+  {
+    method: methods.GET,
+    url: urls.MINE,
+    schema: schemas.mine.get,
+    handler: actions.mine.get
+  },
   // {
   //   method: methods.GET,
   //   url: urls.CHAIN,

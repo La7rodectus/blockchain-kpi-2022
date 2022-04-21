@@ -5,7 +5,7 @@ const MAX_BODY_SIZE = 1024 * 1024 * 4;
 
 const logLevel = () => {
   if (!isTest) {
-    return { level: isProd ? 'warn' : 'info' };
+    return isProd ? { level: 'warn' } : { level: 'info', prettyPrint: true };
   }
   return false;
 };
