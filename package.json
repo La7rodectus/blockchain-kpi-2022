@@ -1,6 +1,6 @@
 {
   "name": "blockchain-kpi-2022",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Template for node.js apps",
   "main": "index.js",
   "directories": {
