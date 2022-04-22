@@ -10,7 +10,7 @@ const action = async (req, res) => {
   currentBlock.addTransaction(new Transaction(
     '0',
     sha256(process.env.NODE_ID),
-    1
+    27 //birthday
   ));
   res.blockchain.insertBlock(currentBlock);
 
