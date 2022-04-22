@@ -17,12 +17,12 @@ const routes = [
     schema: schemas.mine.get,
     handler: actions.mine.get
   },
-  // {
-  //   method: methods.GET,
-  //   url: urls.CHAIN,
-  //   schema: schemas.chain.get,
-  //   handler: actions.chain.get
-  // }
+  {
+    method: methods.GET,
+    url: urls.CHAIN,
+    schema: schemas.chain.get,
+    handler: actions.chain.get
+  }
 ];
 
 const init = async (app) => routes.map((r) => app.route(r));

@@ -1,11 +1,8 @@
 const fp = require('fastify-plugin');
-
-const crypto = require('crypto');
+const { sha256 } = require('../lib/utils');
 
 const Block = require('./block');
 const Blockchain = require('./blockchain');
-
-const sha256 = (str) => crypto.createHash('sha256').update(str).digest('hex');
 
 const GENESIS_BLOCK = new Block('Palchyk', 0);
 

@@ -1,7 +1,7 @@
 const routes = {
   TRANSACTION: '/transaction',
-  MINE: '/mine',
-  CHAIN: 'chain'
+  MINE: '/block/mine',
+  CHAIN: '/chain'
 
 };
 

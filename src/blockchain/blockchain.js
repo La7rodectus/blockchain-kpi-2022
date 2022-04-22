@@ -35,6 +35,10 @@ class Blockchain {
     return this.chain;
   }
 
+  toObject() {
+    return this.chain;
+  }
+
   hashBlock(block) {
     return this._hashF(block);
   }
