@@ -15,6 +15,7 @@ class Blockchain {
 
     this.chain = [];
     this.currentBlock = null;
+    this.nodes = new Map();
 
     this.#init(genesis);
   }
@@ -22,8 +23,40 @@ class Blockchain {
   #validateBlock(prev, block) {
     if (!(block instanceof Block) || !(prev instanceof Block)) return false;
     if (prev.index + 1 !== block.index) return false;
+    if (!prev.getHash()) {
+      prev.calcHash(this._hashF);
+    }
     if (prev.getHash() !== block.lastHash) return false;
+    if (!block.getHash()) {
+      block.calcHash(this._hashF);
+    }
     if (!block.getHash().endsWith(this.#difficulty)) return false;
+    return true;
+  }
+
+  addNode(address) {
+    const url = new URL(address);
+    if (!url.hostname) return false;
+
+    if (!this.nodes.has(url.hostname)) {
+      this.nodes.set(url.hostname, url);
+    }
+    return true;
+  }
+
+  resolveNode() {
+
+  }
+
+  validChain(chain) {
+    const chainLen = chain.length;
+    let lastBlock = chain[0] instanceof Block ? chain[0] : Block.from(chain[0]);
+
+    for (let i = 1; i < chainLen; i++) {
+      const block = chain[i] instanceof Block ? chain[i] : Block.from(chain[i]);
+      if (!this.#validateBlock(lastBlock, block)) return false;
+      lastBlock = block;
+    }
     return true;
   }
 

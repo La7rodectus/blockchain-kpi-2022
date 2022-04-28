@@ -26,5 +26,8 @@ const newBlock = new Block(prev.getHash(), prev.index + 1);
 newBlock.addTransaction(t);
 b.insertBlock(newBlock);
 
+b.addNode('https://touch.com.ua/item/asus-vivobook-flip-14-tp412fa-14-tp412fa-ws31t/');
+console.log(b.nodes);
 console.log(b.log());
 
+console.log(b.validChain(b.chain));

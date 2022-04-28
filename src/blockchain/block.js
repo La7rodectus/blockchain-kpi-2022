@@ -15,6 +15,17 @@ class Block {
     this.#transactions = transactions;
   }
 
+  static from(obj) {
+    const b = new Block(
+      obj.lastHash,
+      obj.index,
+      obj.transactions,
+      obj.timestamp
+    );
+    b.proof = obj.proof;
+    return b;
+  }
+
   #isValidTransaction(t) {
     if (!(t instanceof Transaction)) return false;
 
@@ -33,6 +44,10 @@ class Block {
       proof: this.proof,
       transactions: this.#transactions.map((t) => t.toObject())
     };
+  }
+
+  calcHash(hashF) {
+    this.#hash = hashF(JSON.stringify(this));
   }
 
   getHash() {
