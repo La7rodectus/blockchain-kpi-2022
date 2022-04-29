@@ -1,5 +1,8 @@
+const axios = require('axios').default;
+
 const Block = require('./block');
 
+const NODE_CHAIN_ROUTE = '/chain';
 const DIFFICULTY = '03'; // month of birth
 
 class Blockchain {
@@ -23,14 +26,13 @@ class Blockchain {
   #validateBlock(prev, block) {
     if (!(block instanceof Block) || !(prev instanceof Block)) return false;
     if (prev.index + 1 !== block.index) return false;
-    if (!prev.getHash()) {
-      prev.calcHash(this._hashF);
-    }
+
+    if (!prev.getHash()) prev.calcHash(this._hashF);
     if (prev.getHash() !== block.lastHash) return false;
-    if (!block.getHash()) {
-      block.calcHash(this._hashF);
-    }
+
+    if (!block.getHash()) block.calcHash(this._hashF);
     if (!block.getHash().endsWith(this.#difficulty)) return false;
+
     return true;
   }
 
@@ -44,8 +46,10 @@ class Blockchain {
     return true;
   }
 
-  resolveNode() {
-
+  async consensus() {
+    const requests = this.nodes.values().map((url) => axios.get(url.origin + NODE_CHAIN_ROUTE));
+    Promise.all(requests).then((data) => console.log(data));
+    return true;
   }
 
   validChain(chain) {

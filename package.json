@@ -36,6 +36,7 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "dotenv": "^16.0.0",
     "fastify": "^3.28.0",
     "fastify-cors": "^6.0.3",
