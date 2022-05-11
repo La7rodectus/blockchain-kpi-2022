@@ -9,6 +9,10 @@ class Transaction {
     this.#amount = amount;
   }
 
+  static from(obj) {
+    return new Transaction(obj.sender, obj.recipient, obj.amount);
+  }
+
   toJSON() {
     return this.toObject();
   }

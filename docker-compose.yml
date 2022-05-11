@@ -25,12 +25,12 @@ services:
   blockchain-node-1:
     image: la7rodectus/blockchain-node
     ports:
-      - 3000:3000
+      - 3001:3000
 
   blockchain-node-2:
     image: la7rodectus/blockchain-node
     ports:
-      - 3001:3000
+      - 3002:3000
 
 volumes:
   mysql:

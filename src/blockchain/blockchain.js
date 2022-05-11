@@ -2,7 +2,7 @@ const axios = require('axios').default;
 
 const Block = require('./block');
 
-const NODE_CHAIN_ROUTE = '/chain';
+const NODE_CHAIN_ROUTE = 'chain';
 const DIFFICULTY = '03'; // month of birth
 
 class Blockchain {
@@ -38,21 +38,28 @@ class Blockchain {
 
   addNode(address) {
     const url = new URL(address);
-    if (!url.hostname) return false;
+    if (!url.toString()) return false;
 
-    if (!this.nodes.has(url.hostname)) {
-      this.nodes.set(url.hostname, url);
+    if (!this.nodes.has(url.toString())) {
+      this.nodes.set(url.toString(), url);
     }
     return true;
   }
 
   async consensus() {
-    const requests = this.nodes.values().map((url) => axios.get(url.origin + NODE_CHAIN_ROUTE));
-    Promise.all(requests).then((data) => console.log(data));
-    return true;
+    const requests = Array.from(this.nodes.values()).map((url) => axios.get(url.toString() + NODE_CHAIN_ROUTE));
+    const resps = await (await Promise.all(requests)).map((res) => res.data);
+    resps.sort((prev, next) => next.length - prev.length);
+    for (const ch of resps) {
+      if (this.validateChain(ch)) {
+        this.chain = ch.map((b) => Block.from(b));
+        break;
+      }
+    }
+    return this.chain;
   }
 
-  validChain(chain) {
+  validateChain(chain) {
     const chainLen = chain.length;
     let lastBlock = chain[0] instanceof Block ? chain[0] : Block.from(chain[0]);
 
@@ -111,10 +118,10 @@ class Blockchain {
   }
 
   log() {
-    return this.chain.reduce((acc, b) => ({
+    console.log(this.chain.reduce((acc, b) => ({
       ...acc,
-      [b.getHash()]: b.toObject()
-    }), {});
+      [b.calcHash(this._hashF)]: b.toObject()
+    }), {}));
   }
 
 }

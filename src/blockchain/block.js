@@ -16,10 +16,11 @@ class Block {
   }
 
   static from(obj) {
+    const trnxs = obj.transactions.map((t) => (t instanceof Transaction ? this.toString() : Transaction.from(t)));
     const b = new Block(
       obj.lastHash,
       obj.index,
-      obj.transactions,
+      trnxs,
       obj.timestamp
     );
     b.proof = obj.proof;
@@ -48,6 +49,7 @@ class Block {
 
   calcHash(hashF) {
     this.#hash = hashF(JSON.stringify(this));
+    return this.getHash();
   }
 
   getHash() {

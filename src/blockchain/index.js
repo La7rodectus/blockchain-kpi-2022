@@ -8,7 +8,6 @@ const GENESIS_BLOCK = new Block('Palchyk', 0);
 
 const blockchain = new Blockchain(sha256, GENESIS_BLOCK);
 
-
 const init = async (fastify) => {
   fastify.decorateReply('blockchain', { getter: () => blockchain });
 };
