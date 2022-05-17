@@ -38,12 +38,13 @@ class Block {
   }
 
   toObject() {
+    const transactions = this.#transactions.map((t) => t.toObject());
     return {
       index: this.index,
       lastHash: this.lastHash,
       timestamp: this.timestamp,
       proof: this.proof,
-      transactions: this.#transactions.map((t) => t.toObject())
+      transactions
     };
   }
 

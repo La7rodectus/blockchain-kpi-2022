@@ -7,11 +7,9 @@ const action = async (req, res) => {
   }
 
   const currentBlock = res.blockchain.getCurrentBlock();
-  currentBlock.addTransaction(new Transaction(
-    '0',
-    sha256(process.env.NODE_ID),
-    1
-  ));
+  const t = new Transaction('0', sha256(process.env.NODE_ID), 1);
+  t.addOut(sha256(process.env.NODE_ID), 1);
+  currentBlock.addTransaction(t);
   res.blockchain.insertBlock(currentBlock);
 
   res.code(200).send(res.blockchain.getLastBlock());

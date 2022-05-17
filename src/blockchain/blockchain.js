@@ -71,6 +71,20 @@ class Blockchain {
     return true;
   }
 
+  getBalanceOf(addr) {
+    let balance = 0;
+    let allOuts = [];
+    for (const b of this.chain) {
+      const trxs = b.getTransactions();
+      for (const t of trxs) {
+        const { change, outs } = t.getChangeFor(addr);
+        allOuts = allOuts.concat(outs);
+        balance += change;
+      }
+    }
+    return [balance, allOuts];
+  }
+
   toString() {
     return JSON.stringify(this.chain, null, 4);
   }
