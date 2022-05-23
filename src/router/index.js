@@ -22,6 +22,12 @@ const routes = [
     url: urls.CHAIN,
     schema: schemas.chain.get,
     handler: actions.chain.get
+  },
+  {
+    method: methods.POST,
+    url: urls.NODE,
+    schema: schemas.node.post,
+    handler: actions.node.post
   }
 ];
 
