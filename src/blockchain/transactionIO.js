@@ -12,8 +12,8 @@ class TransactionIO {
     return new TransactionIO(
       obj.addr,
       obj.amount,
-      obj.id,
       obj.used,
+      obj.id
     );
   }
 

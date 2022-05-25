@@ -16,7 +16,7 @@ class Block {
   }
 
   static from(obj) {
-    const trnxs = obj.transactions.map((t) => (t instanceof Transaction ? this.toString() : Transaction.from(t)));
+    const trnxs = obj.transactions.map((t) => (t instanceof Transaction ? t : Transaction.from(t)));
     const b = new Block(
       obj.lastHash,
       obj.index,
@@ -49,6 +49,7 @@ class Block {
   }
 
   calcHash(hashF) {
+    console.log(JSON.stringify(this, null, 2));
     this.#hash = hashF(JSON.stringify(this));
     return this.getHash();
   }
@@ -69,6 +70,7 @@ class Block {
   }
 
   mine(endsWith, hashF) {
+    console.log('mining', JSON.stringify(this, null, 2));
     while (!hashF(JSON.stringify(this)).endsWith(endsWith)) {
       this.proof++;
     }

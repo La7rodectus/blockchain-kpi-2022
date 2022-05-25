@@ -50,6 +50,7 @@ class Blockchain {
     const requests = Array.from(this.nodes.values()).map((url) => axios.get(url.toString() + NODE_CHAIN_ROUTE));
     const resps = await (await Promise.all(requests)).map((res) => res.data);
     resps.sort((prev, next) => next.length - prev.length);
+    console.log(JSON.stringify(resps, null, 2));
     for (const ch of resps) {
       if (this.validateChain(ch)) {
         this.chain = ch.map((b) => Block.from(b));

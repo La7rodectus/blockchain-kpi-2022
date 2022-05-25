@@ -34,6 +34,12 @@ const routes = [
     url: urls.BALANCE,
     schema: schemas.balance.get,
     handler: actions.balance.get
+  },
+  {
+    method: methods.GET,
+    url: urls.CONSENSUS,
+    schema: schemas.consensus.get,
+    handler: actions.consensus.get
   }
 ];
 

@@ -3,8 +3,8 @@ const routes = {
   MINE: '/block/mine',
   CHAIN: '/chain',
   NODE: '/node',
-  BALANCE: '/balance/:id'
-
+  BALANCE: '/balance/:id',
+  CONSENSUS: '/consensus'
 };
 
 module.exports = routes;

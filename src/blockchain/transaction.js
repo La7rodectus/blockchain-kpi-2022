@@ -17,13 +17,19 @@ class Transaction {
 
   static from(obj) {
     const t = new Transaction(obj.sender, obj.recipient, obj.amount);
-    obj.ins.forEach((tio) => t.addIn(tio));
-    obj.outs.forEach((tio) => t.addOut(tio));
+    const ins = obj.ins.map((tio) => TransactionIO.from(tio)) || [];
+    const outs = obj.outs.map((tio) => TransactionIO.from(tio));
+    t.bulkSetInOut(ins, outs);
     return t;
   }
 
   toJSON() {
     return this.toObject();
+  }
+
+  bulkSetInOut(ins, outs) {
+    this.#ins = ins;
+    this.#outs = outs;
   }
 
   toObject() {
