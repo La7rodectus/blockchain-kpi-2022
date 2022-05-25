@@ -1,6 +1,6 @@
 {
   "name": "blockchain-kpi-2022",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Template for node.js apps",
   "main": "index.js",
   "directories": {
@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node ./src",
     "dev": "npx nodemon --inspect=9123 ./src",
+    "demo": "node ./src/demo.js",
     "env:up": "docker compose up -d",
     "env:down": "docker compose down",
     "test": "mocha",
@@ -35,9 +36,13 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "dotenv": "^16.0.0",
     "fastify": "^3.28.0",
     "fastify-cors": "^6.0.3",
-    "fastify-swagger": "^5.1.1"
+    "fastify-plugin": "^3.0.1",
+    "fastify-swagger": "^5.1.1",
+    "nanoid": "^3.3.4",
+    "pino-pretty": "^7.6.1"
   }
 }

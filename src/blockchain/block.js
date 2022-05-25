@@ -15,6 +15,18 @@ class Block {
     this.#transactions = transactions;
   }
 
+  static from(obj) {
+    const trnxs = obj.transactions.map((t) => (t instanceof Transaction ? this.toString() : Transaction.from(t)));
+    const b = new Block(
+      obj.lastHash,
+      obj.index,
+      trnxs,
+      obj.timestamp
+    );
+    b.proof = obj.proof;
+    return b;
+  }
+
   #isValidTransaction(t) {
     if (!(t instanceof Transaction)) return false;
 
@@ -26,13 +38,19 @@ class Block {
   }
 
   toObject() {
+    const transactions = this.#transactions.map((t) => t.toObject());
     return {
       index: this.index,
       lastHash: this.lastHash,
       timestamp: this.timestamp,
       proof: this.proof,
-      transactions: this.#transactions.map((t) => t.toObject())
+      transactions
     };
+  }
+
+  calcHash(hashF) {
+    this.#hash = hashF(JSON.stringify(this));
+    return this.getHash();
   }
 
   getHash() {
