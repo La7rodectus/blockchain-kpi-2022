@@ -44,7 +44,7 @@ class Transaction {
         return acc + val.amount;
       }
     }, 0);
-    return { change, outs };
+    return { change: change || 0, outs };
   }
 
   addIn(addr, amount) {

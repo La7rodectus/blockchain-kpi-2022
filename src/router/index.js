@@ -28,6 +28,12 @@ const routes = [
     url: urls.NODE,
     schema: schemas.node.post,
     handler: actions.node.post
+  },
+  {
+    method: methods.GET,
+    url: urls.BALANCE,
+    schema: schemas.balance.get,
+    handler: actions.balance.get
   }
 ];
 
