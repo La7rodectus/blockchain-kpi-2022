@@ -26,10 +26,5 @@ const newBlock = new Block(prev.getHash(), prev.index + 1);
 newBlock.addTransaction(t);
 b.insertBlock(newBlock);
 
-b.addNode('http://localhost:3001');
-b.addNode('http://localhost:3002');
+b.log();
 
-(async () => {
-  await console.log('valid chain:', await b.consensus());
-  b.log();
-})();

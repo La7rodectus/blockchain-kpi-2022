@@ -18,7 +18,7 @@ class Transaction {
   static from(obj) {
     const t = new Transaction(obj.sender, obj.recipient, obj.amount);
     const ins = obj.ins.map((tio) => TransactionIO.from(tio)) || [];
-    const outs = obj.outs.map((tio) => TransactionIO.from(tio));
+    const outs = obj.outs.map((tio) => TransactionIO.from(tio)) || [];
     t.bulkSetInOut(ins, outs);
     return t;
   }
@@ -44,13 +44,20 @@ class Transaction {
 
   getChangeFor(addr) {
     const outs = [];
-    const change = this.#outs.reduce((acc, val) => {
-      if (!val.used && val.addr === addr) {
-        outs.push(val);
-        return acc + val.amount;
+    let acc = 0;
+    for (const out of this.#outs) {
+      if (!out.used && out.addr === addr) {
+        outs.push(out);
+        acc += +out.amount;
       }
-    }, 0);
-    return { change: change || 0, outs };
+    }
+    // const change = this.#outs.reduce((acc, val) => {
+    //   if (!val.used && val.addr === addr) {
+    //     outs.push(val);
+    //     return acc + val.amount;
+    //   }
+    // }, 0);
+    return { change: acc || 0, outs };
   }
 
   addIn(addr, amount) {
